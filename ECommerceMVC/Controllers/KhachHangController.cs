@@ -17,6 +17,8 @@ namespace ECommerceMVC.Controllers
             _mapper = mapper;
         }
 
+
+        #region Register
         [HttpGet]
         public IActionResult DangKy()
         {
@@ -47,10 +49,27 @@ namespace ECommerceMVC.Controllers
                 }
                 catch (Exception ex)
                 {
-
+                    var mess = $"{ex.Message} shh";
                 }
             }
             return View(model);
         }
+        #endregion
+
+        #region Login
+        [HttpGet]
+        public IActionResult DangNhap(string? ReturnUrl)
+        {
+            ViewBag.ReturnUrl = ReturnUrl;
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult DangNhap(LoginVM model, string? ReturnUrl)
+        {
+            ViewBag.ReturnUrl = ReturnUrl;
+            return View();
+        }
+        #endregion
     }
 }
