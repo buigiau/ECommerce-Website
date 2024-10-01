@@ -4,12 +4,12 @@ namespace ECommerceMVC.ViewModels
     public class RegisterVM
     {
         [Display(Name ="Tên đăng nhập")]
-        [Required(ErrorMessage ="*")]
+        [Required(ErrorMessage ="Chưa nhập tên đăng nhập")]
         [MaxLength(20, ErrorMessage ="Tối đa 20 kí tự")]
         public string MaKh { get; set; }
 
         [Display(Name ="Mật khẩu")]
-        [Required(ErrorMessage = "*")]
+        [Required(ErrorMessage = "Chưa nhập mật khẩu")]
         [DataType(DataType.Password)]
         public string MatKhau { get; set; }
 
