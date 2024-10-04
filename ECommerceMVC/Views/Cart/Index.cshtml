@@ -20,12 +20,12 @@
 			<table class="table">
 				<thead>
 					<tr>
-						<th scope="col">Products</th>
-						<th scope="col">Name</th>
-						<th scope="col">Price</th>
-						<th scope="col">Quantity</th>
-						<th scope="col">Total</th>
-						<th scope="col">Handle</th>
+						<th scope="col">Sản Phẩm</th>
+						<th scope="col">Tên Sản Phẩm</th>
+						<th scope="col">Giá</th>
+						<th scope="col">Số Lượng</th>
+						<th scope="col">Thành Tiền</th>
+						<th scope="col">Xử Lý</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -91,7 +91,7 @@
 							<p class="mb-0">$ @Model.Sum(p=>p.ThanhTien)</p>
 						</div>
 						<div class="d-flex justify-content-between">
-							<h5 class="mb-0 me-4">Shipping</h5>
+							<h5 class="mb-0 me-4">Vận Chuyển</h5>
 							<div class="">
 								<p class="mb-0">Flat rate: $0.00</p>
 							</div>
@@ -99,10 +99,10 @@
 						<p class="mb-0 text-end">Shipping to Ukraine.</p>
 					</div>
 					<div class="py-4 mb-4 border-top border-bottom d-flex justify-content-between">
-						<h5 class="mb-0 ps-4 me-4">Total</h5>
+						<h5 class="mb-0 ps-4 me-4">Thành Tiền</h5>
 						<p class="mb-0 pe-4">$ @Model.Sum(p => p.ThanhTien)</p>
 					</div>
-					<button class="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4" type="button">Proceed Checkout</button>
+					<a asp-action="Checkout" asp-controller="Cart" class="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4">Tiến Hành Thanh Toán</a>
 				</div>
 			</div>
 		</div>

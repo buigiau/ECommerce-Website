@@ -1,0 +1,155 @@
+﻿@model IEnumerable<ECommerceMVC.ViewModels.CartItem>
+@{
+    ViewData["Title"] = "Checkout";
+}
+
+<!-- Single Page Header Start -->
+<div class="container-fluid page-header py-5">
+    <h1 class="text-center text-white display-6">Checkout</h1>
+    <ol class="breadcrumb justify-content-center mb-0">
+        <li class="breadcrumb-item"><a href="#">Home</a></li>
+        <li class="breadcrumb-item"><a href="#">Pages</a></li>
+        <li class="breadcrumb-item active text-white">Checkout</li>
+    </ol>
+</div>
+<!-- Single Page Header End -->
+<!-- Checkout Page Start -->
+<div class="container-fluid py-5">
+    <div class="container py-5">
+        <h1 class="mb-4">Billing Details</h1>
+
+        <form asp-controller="Cart" asp-action="Checkout" method="post">
+            <div class="row g-5">
+                <div class="form-check mt-5 my-3">
+                    <input type="checkbox" class="form-check-input" id="GiongKhachHang" name="GiongKhachHang" value="false">
+                    <label class="form-check-label" for="GiongKhachHang">Giống Thông Tin Khách Hàng?</label>
+                </div>
+                <div class="col-md-12 col-lg-6 col-xl-7">
+                    <!-- Consignee Information -->
+                    <div class="form-item delivery-infor">
+                        <label class="form-label my-3">Người Nhận Hàng<sup>*</sup></label>
+                        <input type="text" name="HoTen" class="form-control">
+                    </div>
+                    <div class="form-item delivery-infor">
+                        <label class="form-label my-3">Địa Chỉ<sup>*</sup></label>
+                        <input type="text" name="DiaChi" class="form-control" placeholder="House Number, Street Name">
+                    </div>
+                    <div class="form-item delivery-infor">
+                        <label class="form-label my-3">Số Điện Thoại<sup>*</sup></label>
+                        <input type="tel" name="DienThoai" class="form-control">
+                    </div>
+
+                    <!-- Additional Notes -->
+                    <div class="form-item">
+                        <label class="form-label my-3">Ghi Chú</label>
+                        <textarea name="GhiChu" class="form-control" rows="6" placeholder="Add any special notes"></textarea>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="row g-4 text-center align-items-center justify-content-center pt-4">
+                        <button type="submit" class="btn border-secondary py-3 px-4 text-uppercase w-100 text-primary">Đặt Hàng</button>
+                    </div>
+                </div>
+
+                <!-- Order Summary -->
+                <div class="col-md-12 col-lg-6 col-xl-5">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Products</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Price</th>
+                                    <th scope="col">Quantity</th>
+                                    <th scope="col">Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            <img src="~/Hinh/HangHoa/@item.Hinh" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="@item.TenHH">
+                                        </td>
+                                        <td>@item.TenHH</td>
+                                        <td>$@item.DonGia</td>
+                                        <td>@item.SoLuong</td>
+                                        <td>$@item.ThanhTien</td>
+                                    </tr>
+                                }
+                                <tr>
+                                    <td colspan="4" class="text-end">Subtotal:</td>
+                                    <td>$@Model.Sum(p => p.ThanhTien).ToString("#, ##0.00")</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" class="text-end">Shipping:</td>
+                                    <td>
+                                        <div class="form-check">
+                                            <input type="radio" class="form-check-input" name="Shipping" value="Free Shipping" id="shipping1" checked>
+                                            <label class="form-check-label" for="shipping1">Free Shipping</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input type="radio" class="form-check-input" name="Shipping" value="Flat rate: $15.00" id="shipping2">
+                                            <label class="form-check-label" for="shipping2">Flat rate: $15.00</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input type="radio" class="form-check-input" name="Shipping" value="Local Pickup: $8.00" id="shipping3">
+                                            <label class="form-check-label" for="shipping3">Local Pickup: $8.00</label>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" class="text-end">Total:</td>
+                                    <td>$@Model.Sum(p => p.ThanhTien + (p.SoLuong > 0 ? 8 : 0)).ToString("#, ##0.00")</td> <!-- Assuming shipping is added -->
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Payment Methods -->
+                    <div class="border-bottom py-3">
+                        <div class="form-check">
+                            <input type="radio" class="form-check-input" name="PaymentMethod" value="Direct Bank Transfer" id="payment1" checked>
+                            <label class="form-check-label" for="payment1">Direct Bank Transfer</label>
+                        </div>
+                        <p class="small">Make your payment directly into our bank account. Use your Order ID as the payment reference. Your order will not be shipped until the funds clear.</p>
+                    </div>
+                    <div class="border-bottom py-3">
+                        <div class="form-check">
+                            <input type="radio" class="form-check-input" name="PaymentMethod" value="Check Payments" id="payment2">
+                            <label class="form-check-label" for="payment2">Check Payments</label>
+                        </div>
+                    </div>
+                    <div class="border-bottom py-3">
+                        <div class="form-check">
+                            <input type="radio" class="form-check-input" name="PaymentMethod" value="Cash On Delivery" id="payment3">
+                            <label class="form-check-label" for="payment3">Cash On Delivery</label>
+                        </div>
+                    </div>
+                    <div class="py-3">
+                        <div class="form-check">
+                            <input type="radio" class="form-check-input" name="PaymentMethod" value="Paypal" id="payment4">
+                            <label class="form-check-label" for="payment4">Paypal</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- Checkout Page End -->
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#GiongKhachHang').change(function () {
+                if ($(this).is(':checked')) {
+                    $(this).val(true);
+                    $(".delivery-infor").addClass("d-none");
+                } else {
+                    $(this).val(false);
+                    $(".delivery-infor").removeClass("d-none");
+                }
+            });
+        });
+    </script>
+}
