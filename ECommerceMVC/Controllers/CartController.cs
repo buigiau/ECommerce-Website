@@ -3,6 +3,7 @@ using ECommerceMVC.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using ECommerceMVC.Helpers;
 using Microsoft.AspNetCore.Authorization;
+using ECommerceMVC.Services;
 
 namespace ECommerceMVC.Controllers
 {
@@ -10,10 +11,13 @@ namespace ECommerceMVC.Controllers
 	{
 		private readonly PaypalClient _paypalClient;
 		public readonly Hshop2023Context db;
-		public CartController(Hshop2023Context context, PaypalClient paypalClient)
+		private readonly IVnPayService _vnPayService;
+
+		public CartController(Hshop2023Context context, PaypalClient paypalClient, IVnPayService vnPayService)
 		{
 			_paypalClient = paypalClient;
 			db = context;
+			_vnPayService = vnPayService;
 		}
 		public List<CartItem> Cart => HttpContext.Session.Get<List<CartItem>>(MySetting.CART_KEY) ?? new List<CartItem>();
 		public IActionResult Index()
@@ -81,8 +85,20 @@ namespace ECommerceMVC.Controllers
 
 		[Authorize]
 		[HttpPost]
-		public IActionResult Checkout(CheckoutVM model)
+		public IActionResult Checkout(CheckoutVM model, string payment = "COD")
 		{
+			if(payment=="Thanh Toán VNPay")
+			{
+				var vnPayModel = new VnPaymentRequestModel
+				{
+					Amount = Cart.Sum(p => p.ThanhTien),
+					CreatedDate = DateTime.Now,
+					Description = $"{model.HoTen} {model.DienThoai}",
+					FullName = model.HoTen,
+					OrderId = new Random().Next(1000, 10000)
+				};
+				return Redirect(_vnPayService.CreatePaymentUrl(HttpContext, vnPayModel));
+			}
 			if (ModelState.IsValid)
 			{
 				var customerId = HttpContext.User.Claims.SingleOrDefault(p => p.Type == MySetting.CLAIM_CUSTOMER_ID).Value;
@@ -189,6 +205,29 @@ namespace ECommerceMVC.Controllers
 		public IActionResult PaymentSuccess()
 		{
 			return View("Success");
+		}
+
+		[Authorize]
+		public IActionResult PaymentFail() 
+		{
+			return View();
+		}	
+
+		[Authorize]
+		public IActionResult PaymentCallBack()
+		{
+			var response = _vnPayService.PaymentExecute(Request.Query);
+			if(response == null || response.VnPayResponseCode != "00")
+			{
+				TempData["Message"] = $"Lỗi thanh toán VNPAY: {response.VnPayResponseCode}";
+				return RedirectToAction("PaymentFail");
+			}
+
+			//Lưu đơn hàng vào db
+
+
+			TempData["Message"] = $"Thanh toán VNPAY thành công!!!";
+			return RedirectToAction("PaymentSuccess");
 		}
 	}
 }
