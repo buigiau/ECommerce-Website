@@ -134,5 +134,10 @@ namespace ECommerceMVC.Controllers
             await HttpContext.SignOutAsync();
             return Redirect("/");
         }
+
+        public IActionResult Contact() 
+        { 
+            return View(); 
+        }
     }
 }
