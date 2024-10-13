@@ -1,5 +1,18 @@
 ﻿@model IEnumerable<ECommerceMVC.ViewModels.MenuLoaiVM>
-
+@{
+    // Dictionary ánh xạ MaLoai với icon tương ứng
+    var iconMapping = new Dictionary<int, string>
+    {
+        { 1000, "fa-solid fa-clock" },
+        { 1001, "fa-solid fa-laptop" },
+        { 1002, "fa-solid fa-camera" },
+        { 1003, "fa-solid fa-mobile" },
+        { 1004, "fa-solid fa-spray-can-sparkles" },
+        { 1005, "fa-solid fa-ring" },
+        { 1006, "fa-solid fa-shoe-prints" },
+        { 1007, "fa-solid fa-suitcase" }
+    };
+}
 <div class="col-lg-12">
     <div class="mb-3">
         <h4>Danh Mục</h4>
@@ -8,7 +21,12 @@
             {
                 <li>
                 <div class="d-flex justify-content-between fruite-name">
-                    <a asp-controller="HangHoa" asp-action="Index" asp-route-loai="@item.MaLoai"><i class="fas fa-apple-alt me-2"></i>@item.TenLoai</a>
+                    <a asp-controller="HangHoa" asp-action="Index" asp-route-loai="@item.MaLoai">
+                            @{
+                                string iconClass = iconMapping.ContainsKey(item.MaLoai) ? iconMapping[item.MaLoai] : "fas fa-question"; // icon mặc định
+                            }
+                            <i class="@iconClass me-2"></i>@item.TenLoai
+                        </a>
                     <span>@item.SoLuong</span>
                 </div>
             </li>

@@ -1,18 +1,18 @@
 ﻿@model IEnumerable<ECommerceMVC.ViewModels.HangHoaVM>
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Sản Phẩm";
     Layout = "_DanhSachHangHoa";
 }
 
-<h1>Index</h1>
+<h1>Sản Phẩm</h1>
 <!-- Single Page Header start -->
 @section BreadCum {
 <div class="container-fluid page-header py-5">
     <h1 class="text-center text-white display-6">Cửa Hàng</h1>
     <ol class="breadcrumb justify-content-center mb-0">
-        <li class="breadcrumb-item"><a href="#">Trang Chủ</a></li>
-        <li class="breadcrumb-item"><a href="#">Pages</a></li>
-        <li class="breadcrumb-item active text-white">Shop</li>
+        <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Trang Chủ</a></li>
+        <li class="breadcrumb-item"><a asp-controller="KhachHang" asp-action="DangNhap">Đăng Nhập</a></li>
+        <li class="breadcrumb-item active text-white">Cửa Hàng</li>
     </ol>
 </div>
 }
