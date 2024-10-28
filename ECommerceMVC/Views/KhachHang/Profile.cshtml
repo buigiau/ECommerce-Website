@@ -1,9 +1,15 @@
-﻿@{
+﻿@model ECommerceMVC.ViewModels.ProfileViewModel
+@{
 	ViewData["Title"] = "Profile";
 }
-
-<h1>Profile</h1>
-<div class="container">
+<link href="~/css/profile.css" rel="stylesheet" asp-append-version="true">
+<div class="profilecontainer">
 	<h2>Welcome @Context.User.Identity.Name</h2>
+	<h3>Thông Tin Khách Hàng</h3>
+
+	<p><strong>Họ tên:</strong> @Model.HoTen</p>
+	<p><strong>Ngày sinh:</strong> @Model.NgaySinh.ToString("dd/MM/yyyy")</p>
+	<p><strong>Email:</strong> @Model.Email</p>
+	<p><strong>Điện thoại:</strong> @Model.DienThoai</p>
 	<a asp-action="LogOut">Đăng Xuất</a>
 </div>

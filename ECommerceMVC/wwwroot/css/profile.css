@@ -1,0 +1,54 @@
+﻿html, body {
+    height: 100%; /* Đảm bảo chiều cao 100% cho body */
+    margin: 0; /* Bỏ margin cho body */
+}
+
+.profilecontainer {
+    max-width: 800px; /* Giới hạn độ rộng của container */
+    margin: 0 auto; /* Giữa trang */
+    padding: 20px; /* Padding cho container */
+    background-color: #f8f9fa; /* Màu nền nhẹ */
+    border-radius: 8px; /* Bo góc cho container */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Hiệu ứng đổ bóng */
+    position: absolute; /* Đặt vị trí absolute */
+    top: 50%; /* Đưa nó xuống giữa màn hình */
+    left: 50%; /* Đưa nó sang giữa màn hình */
+    transform: translate(-50%, -50%); /* Dịch chuyển để căn giữa chính xác */
+}
+
+    .profilecontainer h2 {
+        font-size: 24px; /* Kích thước chữ cho tiêu đề */
+        color: #343a40; /* Màu chữ */
+        text-align: center; /* Căn giữa */
+    }
+
+    .profilecontainer h3 {
+        font-size: 20px; /* Kích thước chữ cho tiêu đề phụ */
+        color: #495057; /* Màu chữ phụ */
+        margin-bottom: 20px; /* Khoảng cách dưới tiêu đề phụ */
+    }
+
+    .profilecontainer p {
+        font-size: 16px; /* Kích thước chữ cho các đoạn văn */
+        color: #212529; /* Màu chữ cho nội dung */
+        line-height: 1.5; /* Khoảng cách giữa các dòng */
+    }
+
+    .profilecontainer strong {
+        color: #007bff; /* Màu chữ cho phần chữ in đậm */
+    }
+
+    .profilecontainer a {
+        display: inline-block; /* Hiển thị link như một khối */
+        margin-top: 20px; /* Khoảng cách trên link */
+        padding: 10px 15px; /* Padding cho link */
+        background-color: #007bff; /* Màu nền cho link */
+        color: #fff; /* Màu chữ cho link */
+        border-radius: 5px; /* Bo góc cho link */
+        text-decoration: none; /* Bỏ gạch chân */
+        transition: background-color 0.3s; /* Hiệu ứng chuyển màu nền */
+    }
+
+        .profilecontainer a:hover {
+            background-color: #0056b3; /* Màu nền khi hover */
+        }
