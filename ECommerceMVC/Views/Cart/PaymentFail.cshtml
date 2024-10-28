@@ -1,29 +1,15 @@
-﻿
-@{
-    ViewData["Title"] = "PaymentFail";
+﻿@{
+	ViewData["Title"] = "PaymentFail";
 }
-<link href="~/css/paymentfail.css" rel="stylesheet">
-
-<div class="container">
-    <div class="ui middle aligned center aligned grid">
-        <div class="ui eight wide column">
-
-            <form class="ui large form">
-                <div class="ui icon negative message">
-                    <i class="warning icon"></i>
-                    <div class="content">
-                        <div class="header">
-                            Oops! Something went wrong.
-                        </div>
-                        <p>While trying to reserve money from your account</p>
-                    </div>
-
-                </div>
-
-                <span class="ui large teal submit fluid button">Try again</span>
-
-            </form>
-        </div>
-    </div>
+<link href="~/css/payment.css" rel="stylesheet" asp-append-version="true">
+<div class="paymentcontainer">
+	<div class="row justify-content-center">
+		<div class="col-md-5">
+			<div class="message-box _success _failed">
+				<i class="fa fa-times-circle" aria-hidden="true"></i>
+				<h2> Your payment failed </h2>
+				<p>  Try again later </p>
+			</div>
+		</div>
+	</div>
 </div>
-

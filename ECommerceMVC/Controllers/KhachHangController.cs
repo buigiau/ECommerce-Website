@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
 namespace ECommerceMVC.Controllers
@@ -125,8 +126,30 @@ namespace ECommerceMVC.Controllers
         [Authorize]
         public IActionResult Profile()
         {
-            return View();
-        }
+			string customerId = User.FindFirst("CustomerID")?.Value;
+
+			if (customerId == null)
+			{
+				return Unauthorized();
+			}
+
+			var khachHang = db.KhachHangs
+				.Where(kh => kh.MaKh == customerId) // Sử dụng customerId
+				.Select(kh => new ProfileViewModel
+				{
+					HoTen = kh.HoTen,
+					NgaySinh = kh.NgaySinh,
+					Email = kh.Email,
+					DienThoai = kh.DienThoai
+				})
+				.FirstOrDefault();
+
+			if (khachHang == null)
+			{
+				return NotFound();
+			}
+			return View(khachHang);
+		}
 
         [Authorize]
         public async Task<ActionResult> LogOut()
