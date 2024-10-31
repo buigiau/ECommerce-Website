@@ -5,18 +5,18 @@
 
 <!-- Single Page Header Start -->
 <div class="container-fluid page-header py-5">
-    <h1 class="text-center text-white display-6">Checkout</h1>
+    <h1 class="text-center text-white display-6">Thanh Toán</h1>
     <ol class="breadcrumb justify-content-center mb-0">
-        <li class="breadcrumb-item"><a href="#">Home</a></li>
-        <li class="breadcrumb-item"><a href="#">Pages</a></li>
-        <li class="breadcrumb-item active text-white">Checkout</li>
+        <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Trang Chủ</a></li>
+        <li class="breadcrumb-item"><a asp-controller="HangHoa" asp-action="Index">Cửa Hàng</a></li>
+		<li class="breadcrumb-item active text-white">Thanh Toán</li>
     </ol>
 </div>
 <!-- Single Page Header End -->
 <!-- Checkout Page Start -->
 <div class="container-fluid py-5">
 	<div class="container py-5">
-		<h1 class="mb-4">Billing details</h1>
+		<h1 class="mb-4">Thông tin đơn hàng</h1>
 		<form asp-action="Checkout" asp-controller="Cart">
 			<div class="row g-5">
 				<div class="col-md-12 col-lg-6 col-xl-7">
@@ -115,7 +115,7 @@
 									<td class="py-5"></td>
 									<td class="py-5">
 										<div class="py-3 border-bottom border-top">
-											<p class="mb-0 text-dark">$135.00</p>
+											<p class="mb-0 text-dark">$@Model.Sum(p => p.ThanhTien).ToString("#,##0.00")</p>
 										</div>
 									</td>
 								</tr>
